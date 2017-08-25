@@ -6,8 +6,18 @@ import { HEROES } from './mock-data/heroes';
 @Injectable()
 export class HeroService {
 
+    getHero(id): Promise<Hero> {
+        return this.getHeroes().then(heroes => heroes.find(hero => hero.id === id));
+    }
+
     getHeroes(): Promise<Hero[]> {
         return Promise.resolve(HEROES);
+    }
+
+    getHeroesSlowly(): Promise<Hero[]> {
+        return new Promise(resolve => {
+            setTimeout(() => resolve(this.getHeroes()), 1000);
+        });
     }
 
 }
